@@ -81,10 +81,10 @@ namespace OpenAI
     #endregion
 
     #region Chat API Data Types
-    public sealed class CreateChatCompletionRequest
+    public sealed class CreateChatCompletionRequest<T>
     {
         public string Model { get; set; }
-        public List<ChatMessage> Messages { get; set; }
+        public List<ChatMessage<T>> Messages { get; set; }
         public float? Temperature { get; set; } = 1;
         public int N { get; set; } = 1;
         public bool Stream { get; set; } = false;
@@ -96,7 +96,7 @@ namespace OpenAI
         public string User { get; set; }
     }
 
-    public struct CreateChatCompletionResponse : IResponse
+    public struct CreateChatCompletionResponse<T> : IResponse
     {
         public ApiError Error { get; set; }
         public string Warning { get; set; }
@@ -104,22 +104,22 @@ namespace OpenAI
         public string Id { get; set; }
         public string Object { get; set; }
         public long Created { get; set; }
-        public List<ChatChoice> Choices { get; set; }
+        public List<ChatChoice<T>> Choices { get; set; }
         public Usage Usage { get; set; }
     }
     
-    public struct ChatChoice
+    public struct ChatChoice<T>
     {
-        public ChatMessage Message { get; set; }
-        public ChatMessage Delta { get; set; }
+        public ChatMessage<T> Message { get; set; }
+        public ChatMessage<T> Delta { get; set; }
         public int? Index { get; set; }
         public string FinishReason { get; set; }
     }
 
-    public struct ChatMessage
+    public struct ChatMessage<T>
     {
         public string Role { get; set; }
-        public string Content { get; set; }
+        public T Content { get; set; }
     }
     
     #endregion

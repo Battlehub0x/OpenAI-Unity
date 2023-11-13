@@ -54,7 +54,8 @@ namespace OpenAI
             {
                 NamingStrategy = new CustomNamingStrategy()
             },
-            MissingMemberHandling = MissingMemberHandling.Error,
+            //MissingMemberHandling = MissingMemberHandling.Error,
+            MissingMemberHandling = MissingMemberHandling.Ignore,
             Culture = CultureInfo.InvariantCulture
         };
         
@@ -251,12 +252,12 @@ namespace OpenAI
         /// </summary>
         /// <param name="request">See <see cref="CreateChatCompletionRequest"/></param>
         /// <returns>See <see cref="CreateChatCompletionResponse"/></returns>
-        public async Task<CreateChatCompletionResponse> CreateChatCompletion(CreateChatCompletionRequest request)
+        public async Task<CreateChatCompletionResponse<T>> CreateChatCompletion<T>(CreateChatCompletionRequest<T> request)
         {
             var path = $"{BASE_PATH}/chat/completions";
             var payload = CreatePayload(request);
             
-            return await DispatchRequest<CreateChatCompletionResponse>(path, UnityWebRequest.kHttpVerbPOST, payload);
+            return await DispatchRequest<CreateChatCompletionResponse<T>>(path, UnityWebRequest.kHttpVerbPOST, payload);
         }
         
         /// <summary>
@@ -266,7 +267,7 @@ namespace OpenAI
         /// <param name="onResponse">Callback function that will be called when stream response is updated.</param>
         /// <param name="onComplete">Callback function that will be called when stream response is completed.</param>
         /// <param name="token">Cancellation token to cancel the request.</param>
-        public void CreateChatCompletionAsync(CreateChatCompletionRequest request, Action<List<CreateChatCompletionResponse>> onResponse, Action onComplete, CancellationTokenSource token)
+        public void CreateChatCompletionAsync<T>(CreateChatCompletionRequest<T> request, Action<List<CreateChatCompletionResponse<T>>> onResponse, Action onComplete, CancellationTokenSource token)
         {
             request.Stream = true;
             var path = $"{BASE_PATH}/chat/completions";
