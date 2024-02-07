@@ -18,7 +18,7 @@ To import the package, follow these steps:
 - Open Unity 2019 or later
 - Go to `Window > Package Manager`
 - Click the `+` button and select `Add package from git URL`
-- Paste the repository URL https://github.com/srcnalt/OpenAI-Unity.git and click `Add`
+- Paste the repository URL https://github.com/Battlehub0x/OpenAI-Unity.git and click `Add`
 
 ### Setting Up Your OpenAI Account
 To use the OpenAI API, you need to have an OpenAI account. Follow these steps to create an account and generate an API key:
